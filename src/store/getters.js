@@ -1,0 +1,1 @@
+export const balance = state => state.balance
