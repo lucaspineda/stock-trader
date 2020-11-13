@@ -15,9 +15,6 @@ export default {
         Stock
     },
 
-    created() {
-    },
-
     data() {
         return {
             quantity: 0,

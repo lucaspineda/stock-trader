@@ -10,12 +10,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    balance: 0
+      balance: 0
   },
   getters,
   mutations: {
     setBalance(state, payload) {
-      state.balance = payload
+        state.balance = payload
     }
   },
   actions: {

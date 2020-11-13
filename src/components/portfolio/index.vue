@@ -1,7 +1,12 @@
 <template>
     <div class="cards-box">
-        <!-- <div v-if="stocks.length === 0">Compre ações para visualizá-las aqui</div> -->
-        <Stock v-for="stock in stocks" 
+        <v-sheet width="100%" v-if="acquiredStock.length === 0" :elevation="6" class="pa-2 mt-10 primary d-flex">
+            <v-icon class="white--text mr-3">info</v-icon>
+            <span class="headline white--text font-weight-light">
+                Buy stocks to visualize them in this page
+            </span>
+        </v-sheet>
+        <Stock v-for="stock in acquiredStock" 
             :key="stock.name" 
             class="mr-3 mb-3" xs12 md6 lg4
             :stock="stock"/>
@@ -16,8 +21,6 @@ export default {
     components: {
         Stock
     },
-    created() {
-    },
     data() {
         return {
             quantity: 0,
@@ -26,8 +29,14 @@ export default {
     computed: {
         stocks() {
             return this.$store.state.stocks.stocks
+        },
+        acquiredStock() {
+            return this.stocks.filter((stock) => stock.quantity > 0)
         }
     },
+    created() {
+        console.log(this.stocks)
+    }
 
 }
 </script>
@@ -36,7 +45,8 @@ export default {
 
     .cards-box {
         display: flex;
-        flex-wrap: wrap;        
+        flex-wrap: wrap;     
+        width: 100%;
     }
     .stock {
         margin: 0 16px 16px 0;
