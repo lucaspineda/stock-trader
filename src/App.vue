@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <div id="app">
-      <Header />
+      <template v-if="!this.$route.meta.noHeader">
+        <Header />
+      </template>
       <div class="box-screen">
         <transition name="slide" mode="out-in">
           <router-view></router-view>

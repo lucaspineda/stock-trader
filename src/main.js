@@ -5,8 +5,11 @@ import router from './router'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
 import './plugins/axios'
+import * as firebase from './plugins/firebase.js'
 
 Vue.config.productionTip = false
+
+Vue.use(firebase)
 
 Vue.filter('formatBalance', function (balance) {
     return 'R$ ' + (Math.round(balance * 100) / 100).toFixed(2);
