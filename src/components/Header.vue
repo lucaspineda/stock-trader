@@ -14,7 +14,11 @@
         <v-toolbar-items>
             <v-btn @click="endDay" text>FINALIZAR DIA</v-btn>
             <v-btn @click="resetSimulation" text>ZERAR SIMULAÇÃO</v-btn>
-            <span class="balance ml-6">SALDO: {{ allData.balance | formatBalance }}</span>
+            <span class="balance mx-6">SALDO: {{ allData.balance | formatBalance }}</span>
+            <v-btn class="blue-grey lighten-5" @click="logoutUserLocal" text>
+                <v-icon class="mr-2">mdi-power</v-icon>
+                LOGOUT
+            </v-btn>
         </v-toolbar-items>
     </v-toolbar>
 </template>
@@ -43,9 +47,11 @@ export default {
     },
     methods: {
         ...mapActions(['loadData']),
+        ...mapActions('auth', ['logoutUser']),
         
         loadDataLocal() {
             this.loadData()
+            console.log('chamou load')
         },
         endDay() {
             this.allData.stocks.forEach(stock => {
@@ -63,6 +69,9 @@ export default {
                 stock.quantity = 0
             })
             this.$store.dispatch('saveData', {balance: 1000})
+        },
+        logoutUserLocal() {
+            this.logoutUser()
         }
     },
 }

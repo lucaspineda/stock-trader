@@ -11,6 +11,10 @@ Vue.use(VueRouter)
 const router =  new VueRouter({
   routes: [
     {
+      path: '/',
+      redirect: '/home',
+    },
+    {
       path: '/home',
       component: Home,
     },
@@ -31,7 +35,8 @@ const router =  new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let loggedIn = true
+  const loggedInLocalStorage = localStorage.getItem('loggedIn')
+  let loggedIn = JSON.parse(loggedInLocalStorage)
   if (!loggedIn && to.path !== '/auth') {
     next('/auth')
   }

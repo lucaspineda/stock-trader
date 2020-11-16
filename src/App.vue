@@ -15,6 +15,8 @@
 
 <script>
 import Header from './components/Header';
+import { mapActions } from 'vuex'
+
 
 export default {
   name: 'App',
@@ -26,6 +28,12 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    ...mapActions('auth', ['handleAuthStateChange'])
+  },
+  mounted() {
+    this.handleAuthStateChange()
+  }
 };
 </script>
 <style>

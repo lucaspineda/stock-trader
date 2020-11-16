@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import stocks from './modules/stocks'
-
-
+import auth from './modules/auth'
 import * as getters from './getters'
-
 
 Vue.use(Vuex)
 
@@ -62,5 +60,5 @@ export default new Vuex.Store({
         dispatch('saveData', {balance, stocks})
     }
   },
-  modules: { stocks }
+  modules: { stocks, auth }
 })
