@@ -4,14 +4,13 @@ import { firebaseDb, firebaseAuth } from '@/plugins/firebase'
 export default {
   namespaced: true,
   state: {
-    stocks: [
-      {
-        id: 1,
+    stocks: {
+      'ID1': {
         name: 'Facebook',
         price: 20,
         quantity: 0
-      },
-    ],
+      }
+    },
     stocksDownloaded: false,
   },
   getters: {
@@ -27,11 +26,14 @@ export default {
     // updateTask(state, payload) {
     //   Object.assign(state.tasks[payload.id], payload.updates)
     // },
+    addTask(state, payload) {
+      state.push(payload)
+    },
     clearTasks(state) {
       state.tasks = {}
     },
-    setTasksDownloaded(state, value) {
-      state.tasksDownloaded = value
+    setStocksDownloaded(state, value) {
+      state.stocksDownloaded = value
     }
   },
   actions: {
@@ -40,27 +42,28 @@ export default {
     },
     fbReadData({ commit }) {
       let userId = firebaseAuth.currentUser.uid
-      let userTasks = firebaseDb.ref('tasks/' + userId)
+      let userStock = firebaseDb.ref('stocks/' + userId)
   
       // initial check for data
-      userTasks.once('value', () => {
-        commit('setTasksDownloaded', true)
+      userStock.once('value', () => {
+        commit('setStocksDownloaded', true)
       }, error => {
         console.log('error.message: ', error.message)
       })
   
       // child added
-      userTasks.on('child_added', snapshot => {
-        let task = snapshot.val()
-        let payload = {
-          id: snapshot.key,
-          task: task
-        }
+      userStock.on('child_added', snapshot => {
+        let stock = snapshot.val()
+        // let payload = {
+        //   id: snapshot.key,
+        //   task: task
+        // }
+        let payload = stock
         commit('addTask', payload)
       })
   
       // child changed
-      userTasks.on('child_changed', snapshot => {
+      userStock.on('child_changed', snapshot => {
         let task = snapshot.val()
         let payload = {
           id: snapshot.key,
@@ -70,21 +73,26 @@ export default {
       })
   
       // child removed
-      userTasks.on('child_removed', snapshot => {
+      userStock.on('child_removed', snapshot => {
         let taskId = snapshot.key
         commit('deleteTask', taskId)
       })
     },
-    fbAddTasks(context, tasks) {
+    fbAddTasks(context, stocks) {
       let userId = firebaseAuth.currentUser.uid
-      tasks.forEach((task) => {
-        let stockRef = firebaseDb.ref('stocks/' + userId + '/' + task.id)
+      console.log(stocks, 'stocks')
+
+      Object.keys(stocks).forEach((id) => {
+        let stock = stocks[id]
+        console.log(stock, 'stock')
+        console.log(stock.name)
+        let stockRef = firebaseDb.ref('stocks/' + userId + '/' + id)
         stockRef.once('value', function(snapshot) {
           var exists = (snapshot.val() !== null);
           if(!exists) {
-            stockRef.set(task)
+            stockRef.set(stock)
           }
-        });
+        })
       })
     },
     fbUpdateStock(context, payload) {
