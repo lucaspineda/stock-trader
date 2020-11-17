@@ -31,7 +31,14 @@ export default {
             return this.$store.state.stocks.stocks
         },
         acquiredStock() {
-            return this.stocks.filter((stock) => stock.quantity > 0)
+            let result = {}
+            for (const key in this.stocks) {
+                console.log(key)
+                if(this.stocks[key].quantity > 0) {
+                    result[key] = this.stocks[key]
+                }
+            }
+            return result;
         }
     },
     created() {

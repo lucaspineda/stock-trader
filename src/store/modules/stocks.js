@@ -1,5 +1,5 @@
+import Vue from 'vue'
 import { firebaseDb, firebaseAuth } from '@/plugins/firebase'
-
 
 export default {
   namespaced: true,
@@ -8,6 +8,11 @@ export default {
       'ID1': {
         name: 'Facebook',
         price: 20,
+        quantity: 0
+      },
+      'ID2': {
+        name: 'Apple',
+        price: 32,
         quantity: 0
       }
     },
@@ -21,16 +26,12 @@ export default {
   mutations: {
     setStocks(state, payload) {
       state.stocks = payload
-      // console.log(state.stocks)
     },
-    // updateTask(state, payload) {
-    //   Object.assign(state.tasks[payload.id], payload.updates)
-    // },
+    updateTask(state, payload) {
+      Object.assign(state.stocks[payload.id], payload.updates)
+    },
     addTask(state, payload) {
-      state.push(payload)
-    },
-    clearTasks(state) {
-      state.tasks = {}
+      Vue.set(state.stocks, payload.id, payload.stock)
     },
     setStocksDownloaded(state, value) {
       state.stocksDownloaded = value
@@ -54,38 +55,27 @@ export default {
       // child added
       userStock.on('child_added', snapshot => {
         let stock = snapshot.val()
-        // let payload = {
-        //   id: snapshot.key,
-        //   task: task
-        // }
-        let payload = stock
+        let payload = {
+          id: snapshot.key,
+          stock: stock
+        }
         commit('addTask', payload)
       })
   
       // child changed
       userStock.on('child_changed', snapshot => {
-        let task = snapshot.val()
+        let stock = snapshot.val()
         let payload = {
           id: snapshot.key,
-          updates: task
+          updates: stock
         }
-        commit('updateTask', payload)
-      })
-  
-      // child removed
-      userStock.on('child_removed', snapshot => {
-        let taskId = snapshot.key
-        commit('deleteTask', taskId)
+        commit('updateStock', payload)
       })
     },
     fbAddTasks(context, stocks) {
       let userId = firebaseAuth.currentUser.uid
-      console.log(stocks, 'stocks')
-
       Object.keys(stocks).forEach((id) => {
         let stock = stocks[id]
-        console.log(stock, 'stock')
-        console.log(stock.name)
         let stockRef = firebaseDb.ref('stocks/' + userId + '/' + id)
         stockRef.once('value', function(snapshot) {
           var exists = (snapshot.val() !== null);

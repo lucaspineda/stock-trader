@@ -38,17 +38,17 @@ export default {
     logoutUser() {
       firebaseAuth.signOut()
     },
-    handleAuthStateChange({ commit }) {
+    handleAuthStateChange({ commit, dispatch }) {
       firebaseAuth.onAuthStateChanged(user => {
         // Loading.hide()
-        console.log('chamou handle')
+        // console.log('chamou handle')
         if (user) {
           commit('setLoggedIn', true)
           // LocalStorage.set('loggedIn', true)
           // localStorage.loggedIn = true
           localStorage.loggedIn = JSON.stringify(true)
           router.push('/')
-          // dispatch('tasks/fbReadData', null, { root: true })
+          dispatch('stocks/fbReadData', null, { root: true })
         }
         else {
           // commit('tasks/clearTasks', null, { root: true })
@@ -57,6 +57,8 @@ export default {
           // LocalStorage.set('loggedIn', false)
           // localStorage.loggedIn = false
           localStorage.loggedIn = JSON.stringify(false)
+          commit('setLoggedIn', false)
+          commit('stocks/stocksDownloaded', false)
           router.replace('/auth')
         }
       })
