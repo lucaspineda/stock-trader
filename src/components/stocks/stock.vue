@@ -34,10 +34,17 @@ export default {
     },
     methods: {
         ...mapActions(['buyStock']),
+        ...mapActions('stocks', ['buyStock']),
+        // buyStockLocal(quantity, price) {
+        //     quantity = parseInt(quantity)
+        //     this.stock.quantity += quantity
+        //     this.buyStock({quantity, price})
+        //     this.quantity = 0
+        // }
         buyStockLocal(quantity, price) {
             quantity = parseInt(quantity)
             this.stock.quantity += quantity
-            this.buyStock({quantity, price})
+            this.fbUpdateStock({quantity, price})
             this.quantity = 0
         }
     },

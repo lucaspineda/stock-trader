@@ -40,7 +40,6 @@ export default {
       firebaseAuth.signOut()
     },
     handleAuthStateChange({ commit }) {
-      console.log(router)
       firebaseAuth.onAuthStateChanged(user => {
         // Loading.hide()
         console.log('chamou handle')

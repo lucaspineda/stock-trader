@@ -33,8 +33,13 @@ export default {
         return {
         }
     },
-    created() {
-        this.loadDataLocal()
+    mounted() {
+        // this.loadDataLocal()
+        console.log(this.$store.state.stocks.stocks, 'stocks')
+        this.handleAuthStateChange()
+        setTimeout(() => {
+            this.fbAddTask(this.allData.stocks)
+        }, 1000);
     },
     computed: {
         allData() {
@@ -47,7 +52,8 @@ export default {
     },
     methods: {
         ...mapActions(['loadData']),
-        ...mapActions('auth', ['logoutUser']),
+        ...mapActions('auth', ['logoutUser', 'handleAuthStateChange']),
+        ...mapActions('stocks', ['fbAddTask']),
         
         loadDataLocal() {
             this.loadData()
