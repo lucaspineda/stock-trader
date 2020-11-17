@@ -10,7 +10,7 @@ export default {
         name: 'Facebook',
         price: 20,
         quantity: 0
-      }
+      },
     ],
     stocksDownloaded: false,
   },
@@ -75,12 +75,17 @@ export default {
         commit('deleteTask', taskId)
       })
     },
-    fbAddTask(context, payload) {
-      console.log(payload)
+    fbAddTasks(context, tasks) {
       let userId = firebaseAuth.currentUser.uid
-      let stockRef = firebaseDb.ref('stocks/' + userId)
-      console.log('adicionou')
-      stockRef.set(payload)
+      tasks.forEach((task) => {
+        let stockRef = firebaseDb.ref('stocks/' + userId + '/' + task.id)
+        stockRef.once('value', function(snapshot) {
+          var exists = (snapshot.val() !== null);
+          if(!exists) {
+            stockRef.set(task)
+          }
+        });
+      })
     },
     fbUpdateStock(context, payload) {
       let userId = firebaseAuth.currentUser.uid

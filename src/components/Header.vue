@@ -35,10 +35,9 @@ export default {
     },
     mounted() {
         // this.loadDataLocal()
-        console.log(this.$store.state.stocks.stocks, 'stocks')
         this.handleAuthStateChange()
         setTimeout(() => {
-            this.fbAddTask(this.allData.stocks)
+            this.fbAddTasks(this.allData.stocks)
         }, 1000);
     },
     computed: {
@@ -53,11 +52,10 @@ export default {
     methods: {
         ...mapActions(['loadData']),
         ...mapActions('auth', ['logoutUser', 'handleAuthStateChange']),
-        ...mapActions('stocks', ['fbAddTask']),
+        ...mapActions('stocks', ['fbAddTasks']),
         
         loadDataLocal() {
             this.loadData()
-            console.log('chamou load')
         },
         endDay() {
             this.allData.stocks.forEach(stock => {

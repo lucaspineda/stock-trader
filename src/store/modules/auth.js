@@ -16,7 +16,6 @@ export default {
   },
   actions: {
     register(ctx, payload) {
-      console.log('payload', payload)
       firebaseAuth.createUserWithEmailAndPassword(payload.email, payload.password)
         .then(response => {
           console.log('response: ', response)
