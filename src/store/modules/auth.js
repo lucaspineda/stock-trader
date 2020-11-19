@@ -49,6 +49,7 @@ export default {
           localStorage.loggedIn = JSON.stringify(true)
           router.push('/')
           dispatch('stocks/fbReadData', null, { root: true })
+          dispatch('fbReadData', null, { root: true })
         }
         else {
           // commit('tasks/clearTasks', null, { root: true })

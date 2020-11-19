@@ -3,18 +3,18 @@
         <v-card color="#fff">
             <v-card tile class="green darken-3 white--text">
                 <v-card-title>
-                    <span class="title font-weight-light">{{ stock.name }} (Preço: {{ stock.price | formatBalance}})</span>
+                    <span class="title font-weight-light">{{ stock.name }} (Price: {{ stock.price | formatBalance}})</span>
                 </v-card-title>
             </v-card>
             <v-card tile class="sub-card">
                 <v-text-field
                     type="number"
-                    label="Quantidade"
+                    label="Quantity"
                     v-model.number="quantity"
                 ></v-text-field>
                 <v-btn class="green darken-3 white--text buy-btn" 
                 :disabled="BtnDisabled"
-                @click="buyStockLocal(quantity, stock.price)">Comprar</v-btn>
+                @click="buyStockLocal(quantity, stock.price)">Buy</v-btn>
             </v-card>
         </v-card>
     </v-flex>
@@ -25,16 +25,19 @@
 import { mapActions } from 'vuex'
 
 export default {
-    props: ['stock'],
+    props: ['stock', 'id'],
     data() {
         return {
             quantity: 0,
             balance: this.$store.state.balance
         }
     },
+    created() {
+        console.log(this.stock)
+    },
     methods: {
-        ...mapActions(['buyStock']),
-        ...mapActions('stocks', ['buyStock']),
+        ...mapActions('stocks', ['updateStock']),
+        ...mapActions(['fbUpdateBalance']),
         // buyStockLocal(quantity, price) {
         //     quantity = parseInt(quantity)
         //     this.stock.quantity += quantity
@@ -43,8 +46,11 @@ export default {
         // }
         buyStockLocal(quantity, price) {
             quantity = parseInt(quantity)
+            const newBalance = this.balance - quantity * price
             this.stock.quantity += quantity
-            this.fbUpdateStock({quantity, price})
+            const quantityTotal = this.stock.quantity
+            this.updateStock({ id: this.id, updates: { quantity: quantityTotal, price } })
+            this.fbUpdateBalance({ balance: newBalance })
             this.quantity = 0
         }
     },

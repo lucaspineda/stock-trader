@@ -6,20 +6,22 @@
                 Buy stocks to visualize them in this page
             </span>
         </v-sheet>
-        <Stock v-for="stock in acquiredStock" 
-            :key="stock.name" 
+        <AcquiredStock v-for="(stock, key) in acquiredStock" 
+            :key="key" 
+            :stock="stock"
+            :id="key"
             class="mr-3 mb-3" xs12 md6 lg4
-            :stock="stock"/>
+        />
     </div>
 </template>
 
 <script>
 
-import Stock from './acquiredStock'
+import AcquiredStock from './acquiredStock'
 
 export default {
     components: {
-        Stock
+        AcquiredStock
     },
     data() {
         return {

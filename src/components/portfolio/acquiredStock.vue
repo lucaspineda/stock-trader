@@ -22,24 +22,26 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 
 export default {
-    props: ['stock'],
+    props: ['stock', 'id'],
     data() {
         return {
             quantity: 0,
         }
     },
     methods: {
+        ...mapActions('stocks', ['updateStock']),
+        ...mapActions(['fbUpdateBalance']),
         sellStock(soldPrice, quantity) {
             quantity = parseInt(quantity)
             let newBalance = this.$store.state.balance + (soldPrice * quantity)
             this.stock.quantity -= this.quantity
-
+            const quantityTotal = this.stock.quantity
+            this.updateStock({ id: this.id, updates: { quantity: quantityTotal, price: soldPrice } })
+            this.fbUpdateBalance({ balance: newBalance })
             this.quantity = 0
-            this.$store.dispatch('saveData', {balance: newBalance })
-
         }
     },
     computed: {

@@ -38,6 +38,7 @@ export default {
         this.handleAuthStateChange()
         setTimeout(() => {
             this.fbAddTasks(this.allData.stocks)
+            this.fbSetBalance(this.allData.balance)
         }, 1000);
     },
     computed: {
@@ -50,9 +51,10 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['loadData']),
+        // ...mapActions(['loadData']),
         ...mapActions('auth', ['logoutUser', 'handleAuthStateChange']),
         ...mapActions('stocks', ['fbAddTasks']),
+        ...mapActions(['fbSetBalance']),
         
         loadDataLocal() {
             this.loadData()

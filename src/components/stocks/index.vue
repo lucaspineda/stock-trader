@@ -1,8 +1,10 @@
 <template>
     <v-layout row wrap>
-        <Stock v-for="stock in stocks" 
-            :key="stock.name"
-            :stock="stock"/>
+        <Stock v-for="(stock, key) in stocks"
+            :key="key"
+            :stock="stock"
+            :id="key"
+        />
     </v-layout>
 </template>
 
@@ -24,6 +26,9 @@ export default {
         stocks() {
             return this.$store.state.stocks.stocks
         }
+    },
+    created() {
+        // console.log(this.stocks['ID1'].constructor, 'aqui')
     },
 
 }
