@@ -34,7 +34,6 @@ export default {
         }
     },
     mounted() {
-        // this.loadDataLocal()
         this.handleAuthStateChange()
         setTimeout(() => {
             this.fbAddTasks(this.allData.stocks)
@@ -60,8 +59,11 @@ export default {
         },
         endDay() {
             for (const key in this.allData.stocks) {
-                this.allData.stocks[key].price += this.getRandom(-5, 5)
-                this.updateStock({ id: key, updates: { price: this.allData.stocks[key].price } })
+                let newPrice = this.allData.stocks[key].price + this.getRandom(-5, 5)
+                if(newPrice < 1) {
+                    newPrice = 1
+                }
+                this.updateStock({ id: key, updates: { price: newPrice } })
             }
         },
         getRandom(min, max){
