@@ -28,9 +28,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    setBalance(state, payload) {
-      state.balance = payload
-    },
     fbReadData({ commit }) {
       let userId = firebaseAuth.currentUser.uid
       let userBalance = firebaseDb.ref('balance/' + userId)

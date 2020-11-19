@@ -29,7 +29,6 @@ export default {
     },
     updateStock(state, payload) {
       Object.assign(state.stocks[payload.id], payload.updates)
-      console.log(state.stocks, 'aqui na mutations')
     },
     addTask(state, payload) {
       Vue.set(state.stocks, payload.id, payload.stock)

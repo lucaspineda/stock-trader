@@ -29,7 +29,6 @@ export default {
     data() {
         return {
             quantity: 0,
-            balance: this.$store.state.balance
         }
     },
     created() {
@@ -60,6 +59,9 @@ export default {
             (this.quantity * this.stock.price <= this.balance) &&
             Number.isInteger(this.quantity))
             return value
+        },
+        balance() {
+            return this.$store.state.balance;
         }
     },
 }
