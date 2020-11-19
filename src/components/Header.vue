@@ -6,15 +6,15 @@
             <span>TRADER</span>
         </v-toolbar-title>
         <v-toolbar-items>
-            <v-btn text to="/">INÍCIO</v-btn>         
-            <v-btn text to="/portfolio">PORTFÓLIO</v-btn>
-            <v-btn text to="/stocks">AÇÕES</v-btn>
+            <v-btn text to="/">HOME</v-btn>         
+            <v-btn text to="/portfolio">PORTFOLIO</v-btn>
+            <v-btn text to="/stocks">STOCKS</v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-toolbar-items>
-            <v-btn @click="endDay" text>FINALIZAR DIA</v-btn>
-            <v-btn @click="resetSimulation" text>ZERAR SIMULAÇÃO</v-btn>
-            <span class="balance mx-6">SALDO: {{ allData.balance | formatBalance }}</span>
+            <v-btn @click="endDay" text>END DAY</v-btn>
+            <v-btn @click="resetSimulation" text>RESET SIMULATION</v-btn>
+            <span class="balance mx-6">BALANCE: {{ allData.balance | formatBalance }}</span>
             <v-btn class="blue-grey lighten-5" @click="logoutUserLocal" text>
                 <v-icon class="mr-2">mdi-power</v-icon>
                 LOGOUT
@@ -51,20 +51,18 @@ export default {
         },
     },
     methods: {
-        // ...mapActions(['loadData']),
         ...mapActions('auth', ['logoutUser', 'handleAuthStateChange']),
-        ...mapActions('stocks', ['fbAddTasks']),
-        ...mapActions(['fbSetBalance']),
+        ...mapActions('stocks', ['fbAddTasks', 'updateStock']),
+        ...mapActions(['fbSetBalance', 'fbUpdateBalance']),
         
         loadDataLocal() {
             this.loadData()
         },
         endDay() {
-            this.allData.stocks.forEach(stock => {
-                stock.price += this.getRandom(-5, 5)
-            });
-
-            this.$store.dispatch('saveData', {stocks: this.allData.stocks})
+            for (const key in this.allData.stocks) {
+                this.allData.stocks[key].price += this.getRandom(-5, 5)
+                this.updateStock({ id: key, updates: { price: this.allData.stocks[key].price } })
+            }
         },
         getRandom(min, max){
             const random = Math.random() * (max - min) + min
