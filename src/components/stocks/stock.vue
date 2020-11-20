@@ -36,9 +36,6 @@ export default {
       quantity: 0,
     };
   },
-  created() {
-    console.log(this.stock);
-  },
   methods: {
     ...mapActions("stocks", ["updateStock"]),
     ...mapActions(["fbUpdateBalance"]),
