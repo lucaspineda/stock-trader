@@ -1,14 +1,7 @@
 export default {
     namespace: true,
     state: {
-        // acquired stocks
-        acquiredStocks: [
-            // {
-            //     name: 'bmw',
-            //     price: 22,
-            //     quantity: 0
-            // }
-        ]
+        acquiredStocks: []
     },
     getters: {
         acquiredStocks(state) {

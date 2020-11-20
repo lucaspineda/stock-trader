@@ -51,8 +51,6 @@ export default {
   mixins: [validationMixin],
 
   validations: {
-    // password: { required, minLength: minLength(6) },
-    // email: { required, email },
     formData: {
       password: { required, minLength: minLength(6) },
       email: { required, email },

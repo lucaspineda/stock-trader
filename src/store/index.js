@@ -31,14 +31,14 @@ export default new Vuex.Store({
     fbReadData({ commit }) {
       let userId = firebaseAuth.currentUser.uid
       let userBalance = firebaseDb.ref('balance/' + userId)
-  
+
       // initial check for data
       userBalance.once('value', () => {
         commit('setStocksDownloaded', true)
       }, error => {
         console.log('error.message: ', error.message)
       })
-  
+
       // child changed
       userBalance.on('value', snapshot => {
         let balance = snapshot.val().balance
@@ -49,9 +49,9 @@ export default new Vuex.Store({
       let userId = firebaseAuth.currentUser.uid
       let balanceRef = firebaseDb.ref('balance/' + userId)
 
-      balanceRef.once('value', function(snapshot) {
+      balanceRef.once('value', function (snapshot) {
         var exists = (snapshot.val() !== null);
-        if(!exists) {
+        if (!exists) {
           balanceRef.set(balance)
         }
       })
@@ -61,37 +61,6 @@ export default new Vuex.Store({
       let stockRef = firebaseDb.ref('balance/' + userId)
       stockRef.update(balance)
     },
-    // load all data from firebase
-    // loadData({commit}) {
-    //     Vue.prototype.$http.get('data.json')
-    //     .then(resp => {
-    //         const data = resp.data
-    //         if(data) {
-    //             commit('setBalance', data.balance)
-    //             commit('setStocks', data.stocks)
-    //         }
-    //     })
-    // },
-    // save all data in firebase
-    // saveData({commit}, payload) {
-
-    //     // check if variables are null or undefined
-    //     if(payload.balance == null) {
-    //         payload.balance = this.getters.balance
-    //     }
-    //     if(payload.stocks == null) {
-    //         payload.stocks = this.getters.stocks
-    //     }
-        
-    //     Vue.prototype.$http.put('data.json', payload)
-    //     .then(resp => {
-    //         const data = resp.data
-    //         if(data) {
-    //             commit('setBalance', data.balance)
-    //             commit('setStocks', data.stocks)
-    //         }
-    //     })
-    // }
   },
   modules: { stocks, auth }
 })

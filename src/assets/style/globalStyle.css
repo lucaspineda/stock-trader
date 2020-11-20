@@ -1,7 +1,8 @@
+/* All global css goes here */
 .box-screen {
-    max-width: 1185px;
-    flex: 1 1 100%;
-    margin: auto;
-    padding: 24px;
-    width: 100%;
+  max-width: 1185px;
+  flex: 1 1 100%;
+  margin: auto;
+  padding: 24px;
+  width: 100%;
 }

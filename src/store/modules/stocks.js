@@ -44,14 +44,14 @@ export default {
     fbReadData({ commit }) {
       let userId = firebaseAuth.currentUser.uid
       let userStock = firebaseDb.ref('stocks/' + userId)
-  
+
       // initial check for data
       userStock.once('value', () => {
         commit('setStocksDownloaded', true)
       }, error => {
         console.log('error.message: ', error.message)
       })
-  
+
       // child added
       userStock.on('child_added', snapshot => {
         let stock = snapshot.val()
@@ -61,7 +61,7 @@ export default {
         }
         commit('addTask', payload)
       })
-  
+
       // child changed
       userStock.on('child_changed', snapshot => {
         let stock = snapshot.val()
@@ -77,9 +77,9 @@ export default {
       Object.keys(stocks).forEach((id) => {
         let stock = stocks[id]
         let stockRef = firebaseDb.ref('stocks/' + userId + '/' + id)
-        stockRef.once('value', function(snapshot) {
+        stockRef.once('value', function (snapshot) {
           var exists = (snapshot.val() !== null);
-          if(!exists) {
+          if (!exists) {
             stockRef.set(stock)
           }
         })
