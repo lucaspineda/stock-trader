@@ -39,7 +39,7 @@ export default {
     ...mapActions(["fbUpdateBalance"]),
     sellStock(soldPrice, quantity) {
       quantity = parseInt(quantity);
-      let newBalance = this.$store.state.balance + soldPrice * quantity;
+      let newBalance = this.$store.getters.getBalance + soldPrice * quantity;
       this.stock.quantity -= this.quantity;
       const quantityTotal = this.stock.quantity;
       this.updateStock({

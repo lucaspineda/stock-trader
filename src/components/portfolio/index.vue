@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     stocks() {
-      return this.$store.state.stocks.stocks;
+      return this.$store.getters["stocks/getStocks"];
     },
     acquiredStock() {
       let result = {};

@@ -62,7 +62,7 @@ export default {
       return value;
     },
     balance() {
-      return this.$store.state.balance;
+      return this.$store.getters["getBalance"];
     },
   },
 };

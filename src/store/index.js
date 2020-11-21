@@ -12,7 +12,7 @@ export default new Vuex.Store({
     balanceDownloaded: false,
   },
   getters: {
-    balance(state) {
+    getBalance(state) {
       return state.balance
     },
     balanceDownloaded(state) {

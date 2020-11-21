@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -42,20 +42,19 @@ export default {
   computed: {
     allData() {
       return {
-        balance: this.$store.state.balance,
-        stocks: this.$store.state.stocks.stocks,
+        balance: this.getBalance(),
+        stocks: this.getStocks(),
         portfolio: [],
       };
     },
   },
   methods: {
+    ...mapGetters("stocks", ["getStocks"]),
+    ...mapGetters(["getBalance"]),
     ...mapActions("auth", ["logoutUser", "handleAuthStateChange"]),
     ...mapActions("stocks", ["fbAddTasks", "updateStock"]),
     ...mapActions(["fbSetBalance", "fbUpdateBalance"]),
 
-    loadDataLocal() {
-      this.loadData();
-    },
     endDay() {
       for (const key in this.allData.stocks) {
         let newPrice = this.allData.stocks[key].price + this.getRandom(-5, 5);

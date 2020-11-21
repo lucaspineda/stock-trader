@@ -24,7 +24,7 @@
 export default {
   computed: {
     balance() {
-      return this.$store.state.balance;
+      return this.$store.getters.getBalance;
     },
   },
 };

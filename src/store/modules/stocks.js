@@ -19,7 +19,7 @@ export default {
     stocksDownloaded: false,
   },
   getters: {
-    stocks(state) {
+    getStocks(state) {
       return state.stocks
     }
   },
