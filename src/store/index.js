@@ -39,7 +39,7 @@ export default new Vuex.Store({
         console.log('error.message: ', error.message)
       })
 
-      // child changed
+      // value changed
       userBalance.on('value', snapshot => {
         let balance = snapshot.val().balance
         commit('setBalance', balance)
@@ -52,7 +52,7 @@ export default new Vuex.Store({
       balanceRef.once('value', function (snapshot) {
         var exists = (snapshot.val() !== null);
         if (!exists) {
-          balanceRef.set(balance)
+          balanceRef.set({ balance: balance })
         }
       })
     },
