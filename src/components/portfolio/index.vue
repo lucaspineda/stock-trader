@@ -2,13 +2,13 @@
   <div class="cards-box">
     <v-sheet
       width="100%"
-      v-if="acquiredStock.length === 0"
+      v-if="Object.keys(acquiredStock).length === 0"
       :elevation="6"
       class="pa-2 mt-10 primary d-flex"
     >
       <v-icon class="white--text mr-3">info</v-icon>
       <span class="headline white--text font-weight-light">
-        Buy stocks to visualize them in this page
+        Buy stocks to sell them in this page
       </span>
     </v-sheet>
     <AcquiredStock
