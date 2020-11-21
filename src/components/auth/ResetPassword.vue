@@ -17,6 +17,7 @@
             required
             @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
+            @keyup.enter="sendResetEmail"
           ></v-text-field>
         </v-col>
       </v-card-text>
@@ -33,6 +34,7 @@
       :feedback="feedbackError"
       @close-dialog="closeFeedbackDialog"
     />
+    <Loading :loading="loading" />
   </v-dialog>
 </template>
 
@@ -41,11 +43,13 @@ import { required, email } from "vuelidate/lib/validators";
 import { validationMixin } from "vuelidate";
 import { firebaseAuth } from "@/plugins/firebase.js";
 import FeedbackDialog from "./../shared/feedbackDialog.vue";
+import Loading from "./../shared/Loading.vue";
 
 export default {
   mixins: [validationMixin],
   components: {
     FeedbackDialog,
+    Loading,
   },
 
   data() {
@@ -54,6 +58,7 @@ export default {
       email: "",
       feedbackDialog: false,
       feedbackError: "",
+      loading: false,
     };
   },
   validations: {
@@ -66,6 +71,7 @@ export default {
     sendResetEmail() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
+        this.loading = true;
         firebaseAuth
           .sendPasswordResetEmail(this.email)
           .then(() => {
@@ -74,6 +80,9 @@ export default {
           .catch((error) => {
             this.feedbackDialog = true;
             this.feedbackError = error.message;
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     },

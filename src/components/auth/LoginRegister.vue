@@ -14,6 +14,7 @@
         required
         @input="$v.formData.email.$touch()"
         @blur="$v.formData.email.$touch()"
+        @keyup.enter="submit()"
       ></v-text-field>
       <v-text-field
         v-model="formData.password"
@@ -25,12 +26,13 @@
         @click:append="showPassword = !showPassword"
         @input="$v.formData.password.$touch()"
         @blur="$v.formData.password.$touch()"
+        @keyup.enter="submit()"
       ></v-text-field>
       <div class="mt-2">
         <v-btn class="mr-4 primary" @click="submit">
           {{ currentTab }}
         </v-btn>
-        <ResetPassword v-if="currentTab === 'login'" />
+        <ResetPassword v-if="currentTab === 'Login'" />
       </div>
     </form>
     <FeedbackDialog
@@ -38,6 +40,7 @@
       :feedback="feedbackError"
       @close-dialog="closeFeedbackDialog"
     />
+    <Loading :loading="loading" />
   </div>
 </template>
 
@@ -47,6 +50,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 import ResetPassword from "./ResetPassword.vue";
 import FeedbackDialog from "./../shared/feedbackDialog.vue";
+import Loading from "./../shared/Loading.vue";
 
 export default {
   props: ["currentTab"],
@@ -55,6 +59,7 @@ export default {
   components: {
     ResetPassword,
     FeedbackDialog,
+    Loading,
   },
   validations: {
     formData: {
@@ -72,6 +77,7 @@ export default {
         password: "",
       },
       showPassword: false,
+      loading: false,
     };
   },
   computed: {
@@ -98,19 +104,24 @@ export default {
     submit() {
       this.$v.$touch();
       if (!this.$v.$anyError) {
-        if (this.currentTab === "login") {
+        this.loading = true;
+        if (this.currentTab === "Login") {
           this.login(this.formData)
-            .then(() => {})
             .catch((error) => {
               this.feedbackError = error.message;
               this.feedbackDialog = true;
+            })
+            .finally(() => {
+              this.loading = false;
             });
         } else {
           this.register(this.formData)
-            .then(() => {})
             .catch((error) => {
               this.feedbackError = error.message;
               this.feedbackDialog = true;
+            })
+            .finally(() => {
+              this.loading = false;
             });
         }
       }
