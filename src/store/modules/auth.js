@@ -16,22 +16,10 @@ export default {
   },
   actions: {
     register(ctx, payload) {
-      firebaseAuth.createUserWithEmailAndPassword(payload.email, payload.password)
-        .then(() => {
-          console.log('registered')
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      return firebaseAuth.createUserWithEmailAndPassword(payload.email, payload.password)
     },
     login(ctx, payload) {
-      firebaseAuth.signInWithEmailAndPassword(payload.email, payload.password)
-        .then(() => {
-          console.log('success')
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      return firebaseAuth.signInWithEmailAndPassword(payload.email, payload.password)
     },
     logoutUser() {
       firebaseAuth.signOut()

@@ -27,79 +27,100 @@
         @blur="$v.formData.password.$touch()"
       ></v-text-field>
       <div class="mt-2">
-        <v-btn
-          class="mr-4 primary"
-          @click="submit"
-        >
+        <v-btn class="mr-4 primary" @click="submit">
           {{ currentTab }}
         </v-btn>
-        <v-btn v-if="currentTab === 'login'">
-          Reset password
-        </v-btn>
+        <ResetPassword v-if="currentTab === 'login'" />
       </div>
     </form>
+    <FeedbackDialog
+      :dialog="feedbackDialog"
+      :feedback="feedbackError"
+      @close-dialog="closeFeedbackDialog"
+    />
   </div>
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required, email, minLength } from 'vuelidate/lib/validators'
-import { mapActions } from 'vuex'
+import { validationMixin } from "vuelidate";
+import { required, email, minLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
+import ResetPassword from "./ResetPassword.vue";
+import FeedbackDialog from "./../shared/feedbackDialog.vue";
 
 export default {
-  props: ['currentTab'],
+  props: ["currentTab"],
   mixins: [validationMixin],
 
+  components: {
+    ResetPassword,
+    FeedbackDialog,
+  },
   validations: {
     formData: {
       password: { required, minLength: minLength(6) },
       email: { required, email },
-    }
+    },
   },
   data() {
     return {
-      email: '',
+      email: "",
+      feedbackError: "",
+      feedbackDialog: false,
       formData: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       },
       showPassword: false,
-    }
+    };
   },
   computed: {
-    emailErrors () {
-      const errors = []
-      if (!this.$v.formData.email.$dirty) return errors
-      !this.$v.formData.email.required && errors.push('E-mail is required')
-      !this.$v.formData.email.email && errors.push('Must be valid e-mail')
-      return errors
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.formData.email.$dirty) return errors;
+      !this.$v.formData.email.required && errors.push("E-mail is required");
+      !this.$v.formData.email.email && errors.push("Must be valid e-mail");
+      return errors;
     },
-    passwordErrors () {
-      const errors = []
-      if (!this.$v.formData.password.$dirty) return errors
-      !this.$v.formData.password.required && errors.push('Password is required')
-      !this.$v.formData.password.minLength && errors.push('Min 6 characters')
-      return errors
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.formData.password.$dirty) return errors;
+      !this.$v.formData.password.required &&
+        errors.push("Password is required");
+      !this.$v.formData.password.minLength && errors.push("Min 6 characters");
+      return errors;
     },
   },
 
   methods: {
-    ...mapActions('auth', ['register', 'login']),
+    ...mapActions("auth", ["register", "login"]),
 
-    submit () {
-      this.$v.$touch()
-      if(!this.$v.$anyError) {
-        if(this.currentTab === 'login') {
+    submit() {
+      this.$v.$touch();
+      if (!this.$v.$anyError) {
+        if (this.currentTab === "login") {
           this.login(this.formData)
+            .then(() => {})
+            .catch((error) => {
+              this.feedbackError = error.message;
+              this.feedbackDialog = true;
+            });
         } else {
           this.register(this.formData)
+            .then(() => {})
+            .catch((error) => {
+              this.feedbackError = error.message;
+              this.feedbackDialog = true;
+            });
         }
       }
     },
+    closeFeedbackDialog() {
+      this.feedbackDialog = false;
+    },
   },
-}
+};
 </script>
 
 <style>
-
 </style>
