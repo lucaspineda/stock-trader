@@ -38,7 +38,7 @@ export default {
           else {
             localStorage.loggedIn = JSON.stringify(false)
             commit('setLoggedIn', false)
-            commit('stocks/stocksDownloaded', false)
+            commit('stocks/setStocksDownloaded', true, { root: true })
             router.replace('/auth')
             reject()
           }

@@ -34,7 +34,7 @@ export default new Vuex.Store({
 
       // initial check for data
       userBalance.once('value', () => {
-        commit('stocks/setStocksDownloaded', true)
+        commit('stocks/setStocksDownloaded', true, { root: true })
       }, error => {
         console.log('error.message: ', error.message)
       })
