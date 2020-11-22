@@ -72,7 +72,7 @@ export default {
         commit('updateStock', payload)
       })
     },
-    fbAddTasks(context, stocks) {
+    fbAddStock(context, stocks) {
       let userId = firebaseAuth.currentUser.uid
       Object.keys(stocks).forEach((id) => {
         let stock = stocks[id]

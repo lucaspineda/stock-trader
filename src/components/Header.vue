@@ -33,11 +33,10 @@ export default {
     return {};
   },
   mounted() {
-    this.handleAuthStateChange();
-    setTimeout(() => {
-      this.fbAddTasks(this.allData.stocks);
+    this.handleAuthStateChange().then(() => {
+      this.fbAddStock(this.allData.stocks);
       this.fbSetBalance(this.allData.balance);
-    }, 1000);
+    });
   },
   computed: {
     allData() {
@@ -52,7 +51,7 @@ export default {
     ...mapGetters("stocks", ["getStocks"]),
     ...mapGetters(["getBalance"]),
     ...mapActions("auth", ["logoutUser", "handleAuthStateChange"]),
-    ...mapActions("stocks", ["fbAddTasks", "updateStock"]),
+    ...mapActions("stocks", ["fbAddStock", "updateStock"]),
     ...mapActions(["fbSetBalance", "fbUpdateBalance"]),
 
     endDay() {
