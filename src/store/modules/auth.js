@@ -30,7 +30,7 @@ export default {
           if (user) {
             commit('setLoggedIn', true)
             localStorage.loggedIn = JSON.stringify(true)
-            router.push('/')
+            router.push('/home')
             dispatch('stocks/fbReadData', null, { root: true })
             dispatch('fbReadData', null, { root: true })
             resolve()
@@ -45,23 +45,6 @@ export default {
         })
       });
       return promise
-      // return firebaseAuth.onAuthStateChanged(user => {
-      //   console.log("começou 2");
-      //   console.log(user.uid, 'uid aqui')
-      //   if (user) {
-      //     commit('setLoggedIn', true)
-      //     localStorage.loggedIn = JSON.stringify(true)
-      //     router.push('/')
-      //     dispatch('stocks/fbReadData', null, { root: true })
-      //     dispatch('fbReadData', null, { root: true })
-      //   }
-      //   else {
-      //     localStorage.loggedIn = JSON.stringify(false)
-      //     commit('setLoggedIn', false)
-      //     commit('stocks/stocksDownloaded', false)
-      //     router.replace('/auth')
-      //   }
-      // })
     }
   }
 }

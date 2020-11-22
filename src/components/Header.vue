@@ -6,7 +6,7 @@
       <span>TRADER</span>
     </v-toolbar-title>
     <v-toolbar-items>
-      <v-btn text to="/">HOME</v-btn>
+      <v-btn text to="/home">HOME</v-btn>
       <v-btn text to="/portfolio">PORTFOLIO</v-btn>
       <v-btn text to="/stocks">STOCKS</v-btn>
     </v-toolbar-items>

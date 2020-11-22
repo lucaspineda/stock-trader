@@ -30,7 +30,7 @@ export default {
     updateStock(state, payload) {
       Object.assign(state.stocks[payload.id], payload.updates)
     },
-    addTask(state, payload) {
+    addStock(state, payload) {
       Vue.set(state.stocks, payload.id, payload.stock)
     },
     setStocksDownloaded(state, value) {
@@ -59,7 +59,7 @@ export default {
           id: snapshot.key,
           stock: stock
         }
-        commit('addTask', payload)
+        commit('addStock', payload)
       })
 
       // child changed

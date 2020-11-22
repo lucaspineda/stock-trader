@@ -8,12 +8,8 @@ import Auth from '../components/auth/index.vue'
 
 Vue.use(VueRouter)
 
-const router =  new VueRouter({
+const router = new VueRouter({
   routes: [
-    {
-      path: '/',
-      redirect: '/home',
-    },
     {
       path: '/home',
       component: Home,
@@ -31,7 +27,7 @@ const router =  new VueRouter({
       component: Auth,
       meta: { noHeader: true }
     },
-    ]
+  ]
 })
 
 router.beforeEach((to, from, next) => {
