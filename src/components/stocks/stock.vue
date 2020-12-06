@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="pr-3 pb-3" xs12 md6 lg4>
+  <v-flex class="pr-3 pb-8" xs12 md6 lg4>
     <v-card color="#fff">
       <v-card tile class="green darken-3 white--text">
         <v-card-title>

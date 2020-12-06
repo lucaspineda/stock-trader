@@ -1,5 +1,5 @@
 <template>
-  <div class="cards-box">
+  <v-layout row wrap>
     <v-sheet
       width="100%"
       v-if="Object.keys(acquiredStock).length === 0"
@@ -16,12 +16,11 @@
       :key="key"
       :stock="stock"
       :id="key"
-      class="mr-3 mb-3"
       xs12
       md6
       lg4
     />
-  </div>
+  </v-layout>
 </template>
 
 <script>

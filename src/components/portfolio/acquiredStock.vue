@@ -1,27 +1,31 @@
 <template>
-  <v-card v-if="stock.quantity > 0" color="#fff">
-    <v-card tile class="blue darken-3 white--text">
-      <v-card-title>
-        <span class="title font-weight-light">
-          {{ stock.name }} (Price: {{ stock.price | formatBalance }} | Quantity:
-          {{ stock.quantity }} )
-        </span>
-      </v-card-title>
+  <v-flex class="pr-3 pb-8" xs12 md6 lg4>
+    <v-card v-if="stock.quantity > 0" color="#fff">
+      <v-card tile class="blue darken-3 white--text">
+        <v-card-title>
+          <span class="title font-weight-light">
+            {{ stock.name }} (Price: {{ stock.price | formatBalance }})
+            <br>
+            Quantity available:
+            {{ stock.quantity }}
+          </span>
+        </v-card-title>
+      </v-card>
+      <v-card tile class="sub-card">
+        <v-text-field
+          type="number"
+          label="Quantity"
+          v-model.number="quantity"
+        ></v-text-field>
+        <v-btn
+          class="blue darken-3 white--text buy-btn"
+          :disabled="BtnDisabled"
+          @click="sellStock(stock.price, quantity)"
+          >Sell</v-btn
+        >
+      </v-card>
     </v-card>
-    <v-card tile class="sub-card">
-      <v-text-field
-        type="number"
-        label="Quantity"
-        v-model.number="quantity"
-      ></v-text-field>
-      <v-btn
-        class="blue darken-3 white--text buy-btn"
-        :disabled="BtnDisabled"
-        @click="sellStock(stock.price, quantity)"
-        >Vender</v-btn
-      >
-    </v-card>
-  </v-card>
+  </v-flex>
 </template>
 
 <script>

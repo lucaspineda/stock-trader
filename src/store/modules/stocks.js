@@ -14,7 +14,47 @@ export default {
         name: 'Apple',
         price: 32,
         quantity: 0
-      }
+      },
+      'ID3': {
+        name: 'Microsoft',
+        price: 32,
+        quantity: 0
+      },
+      'ID4': {
+        name: 'Amazon',
+        price: 24,
+        quantity: 0
+      },
+      'ID5': {
+        name: 'Google',
+        price: 28,
+        quantity: 0
+      },
+      'ID6': {
+        name: 'Alibaba',
+        price: 14,
+        quantity: 0
+      },
+      'ID7': {
+        name: 'Wal-Mart',
+        price: 17,
+        quantity: 0
+      },
+      'ID8': {
+        name: 'Wells Fargo',
+        price: 25,
+        quantity: 0
+      },
+      'ID9': {
+        name: 'AT&T',
+        price: 21,
+        quantity: 0
+      },
+      'ID10': {
+        name: 'UnitedHealth Group',
+        price: 16,
+        quantity: 0
+      },
     },
     stocksDownloaded: false,
   },
