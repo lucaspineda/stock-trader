@@ -23,7 +23,7 @@
     <a href="https://github.com/lucaspineda/stock-trader"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/lucaspineda/stock-trader">View Demo</a>
+    <a href="https://brave-kirch-83e7f4.netlify.app">View Demo</a>
     ·
     <a href="https://github.com/lucaspineda/stock-trader/issues">Report Bug</a>
     ·
