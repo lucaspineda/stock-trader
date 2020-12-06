@@ -131,7 +131,7 @@ This is just a learning purpose project, but if you want to add some more cool f
 <!-- CONTACT -->
 ## Contact
 
-Lucas Pineda - [@your_twitter](https://twitter.com/lucaspineda96) - lucas.pineda@hotmail.com
+Lucas Pineda - [@lucaspineda96](https://twitter.com/lucaspineda96) - lucas.pineda@hotmail.com
 
 Project Link: [https://github.com/lucaspineda/stock-trader](https://github.com/lucaspineda/stock-trader)
 
