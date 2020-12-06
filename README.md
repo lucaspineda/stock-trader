@@ -1,11 +1,9 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0be48dcc-ceb0-4e32-bc54-8a08ecf7ecef/deploy-status)](https://app.netlify.com/sites/brave-kirch-83e7f4/deploys)
 # Stock Trader
 
 ## VueJs app using Firebase
 
 - This project is an application that simulates the stock market
-
-## What's Missing?
-- The authentication part is still not done.
 
 ## How do I run the project on my PC?
 - You must have node installed
